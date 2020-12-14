@@ -1,4 +1,4 @@
-
+from sqlalchemy import create_engine
 import pandas as pd
 import datetime
 import time
@@ -264,23 +264,26 @@ class RFM_Model:
         f_scores_list = []
         m_scores_list = []
         users_list = []
+        users_list_number= []
         for item in rfm_df["client_type"].unique().tolist():
 
             group_name_list.append(item)
             r_scores_list.append(rfm_df.loc[rfm_df["client_type"] == item, "recency_label_score"].values.tolist())
             f_scores_list.append(rfm_df.loc[rfm_df["client_type"] == item, "frequency_label_score"].values.tolist())
             m_scores_list.append(rfm_df.loc[rfm_df["client_type"] == item, "monetary_label_score"].values.tolist())
-            temp_list = rfm_df.loc[rfm_df["client_type"] == item, "carrier_number"].values.tolist()
+
+            temp_list = rfm_df.loc[rfm_df["client_type"] == item, "carrier_number"].unique().tolist()
             ",".join(temp_list)
             users_list.append("[" + ",".join(temp_list) + "]")
-
+            users_list_number.append(len(rfm_df.loc[rfm_df["client_type"] == item, "carrier_number"].unique().tolist()))
 
         resdf = pd.DataFrame({
             "group_name": group_name_list,
             "r_scores": r_scores_list,
             "f_scores": f_scores_list,
             "m_scores": m_scores_list,
-            "users": users_list
+            "users": users_list,
+            "users_count": users_list_number
         })
         resdf["group_id"] = resdf['group_name'].apply(
             lambda x: self.get_client_label(label_name=x)
