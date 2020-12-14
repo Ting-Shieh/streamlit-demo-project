@@ -2,8 +2,6 @@
 import math as mt
 import numpy as np
 import pandas as pd
-from sqlalchemy import create_engine
-
 from scipy.sparse.linalg import *
 from scipy.sparse.linalg import svds
 from scipy.sparse import csc_matrix
@@ -28,28 +26,6 @@ def handle_group_dict(group_dict):
         group_dict[item] = group_dict[item].replace('[', '').replace(']', '').split(',')
     return group_dict
 
-class MysqlHelper:
-    def __init__(self, host="invoice-power.api.case5888.com", user="username", pwd="new-password", database="invoice_db",develop=True):
-        self.host =  host if develop else "127.0.0.1"
-        self.user = user
-        self.passwd = pwd
-        self.port = 3306
-        self.database = database
-
-    def __get_mycursor(self):
-        return self.__mydb.cursor()
-
-    def __use_sqlalchemy_connect(self):
-        """
-        用 sqlalchemy 建構數據庫連接engine
-        """
-        connect_info = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(self.user, self.passwd, self.host, self.port, self.database)
-        return create_engine(connect_info)
-
-
-    def mysql2df(self,sql):
-        engine = self.__use_sqlalchemy_connect()
-        return pd.read_sql_query(sql, engine)
 
 class RFM_Group_Recommand_Model:
     def __init__(self, cat_df, model_type, column_name):
