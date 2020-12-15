@@ -224,25 +224,25 @@ def main():
             left_column.write("飲料沖泡")
             plot_one_df.loc[plot_one_df['cat_id'] == 1, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
 
-            left_column.pyplot()
+            
             left_column.write("美食生鮮")
             plot_one_df.loc[plot_one_df['cat_id'] == 3, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
 
-            left_column.pyplot()
+            
             left_column.write("居家生活")
             plot_one_df.loc[plot_one_df['cat_id'] == 5, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
 
-            left_column.pyplot()
+            
             left_column.write("家電")
             plot_one_df.loc[plot_one_df['cat_id'] == 7, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
 
-            left_column.pyplot()
+            
             left_column.write("零食")
             plot_one_df.loc[plot_one_df['cat_id'] == 9, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-            left_column.pyplot()
+            
             left_column.write("菸酒")
             plot_one_df.loc[plot_one_df['cat_id'] == 13, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-            left_column.pyplot()
+            
             left_column.write("生活休閒")
             plot_one_df.loc[plot_one_df['cat_id'] == 15, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
             left_column.pyplot()
