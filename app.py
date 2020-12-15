@@ -45,6 +45,7 @@ def getInitDataFrame():
     init_invoice_df = pd.read_csv('./data/new_invoice.csv', low_memory=False)
     init_invoice_df = init_invoice_df[usecolumns]
     init_invoice_df['invoice_date'] = pd.to_datetime(init_invoice_df['invoice_date'], format='%Y/%m/%d')
+    init_invoice_df['city'] = init_invoice_df['store_address'].str[0:3]
     return init_invoice_df
 
 @st.cache
