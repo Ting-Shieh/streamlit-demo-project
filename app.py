@@ -211,7 +211,7 @@ def main():
         plot_catcnid_cal = init_invoice_df.groupby(['carrier_number', 'cat_id'], as_index=False).size()
         st.dataframe(plot_catcnid_cal)
         # TODO
-            st.markdown(frontendtemplate.title_temp.format('各類別在各縣市上的數量總攬'), unsafe_allow_html=True)
+        st.markdown(frontendtemplate.title_temp.format('各類別在各縣市上的數量總攬'), unsafe_allow_html=True)
 
         # TODO 分欄
         left_column, right_column = st.beta_columns(2)
