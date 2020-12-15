@@ -135,7 +135,7 @@ def showSideBar():
     options=("資料情況", "類別預測",  "推薦系統")
     )
        
-    if selected_service == "瀏覽資料":
+    if selected_service == "資料情況":
         st.sidebar.markdown(frontendtemplate.title_temp.format('瀏覽資料'), unsafe_allow_html=True)
         if st.sidebar.button('Show Data'):
             global btn_dict
