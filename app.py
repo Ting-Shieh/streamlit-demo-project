@@ -192,83 +192,85 @@ def main():
     frontendtemplate = FrontEndTemplate()
     init_invoice_df = getInitDataFrame()
     plot_one_df = get_city_size(init_invoice_df)
-    # TODO show sidebar
+    # TODO show sidebar if btn_dic['btn_datashow']:
     showSideBar()
     
     
-    if btn_dic['btn_datashow']:
-        st.markdown(frontendtemplate.title_temp.format('Data 總攬'), unsafe_allow_html=True)
-        st.dataframe(init_invoice_df[
-                         ['invoice_number', 'product_name', 'quantity', 'unit_price', 'invoice_number',
-                          'invoice_date', 'store_address', ]])
+    
+    st.markdown(frontendtemplate.title_temp.format('Data 總攬'), unsafe_allow_html=True)
+    st.dataframe(init_invoice_df[
+                     ['invoice_number', 'product_name', 'quantity', 'unit_price', 'invoice_number',
+                      'invoice_date', 'store_address', ]])
+    
+    # TODO
+    st.markdown(frontendtemplate.title_temp.format('各列別數量 總攬'), unsafe_allow_html=True)
+    plot_cat_cal = init_invoice_df.groupby('cat_id')['invoice_number'].count()
+    plot_cat_cal.plot(kind='bar', rot=85, figsize=(10, 6))
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.pyplot()
+    # st.bar_chart(plot_cat_cal, width=20,use_container_width=True)
+    # st.dataframe(init_invoice_df.groupby('cat_id')['unit_price'].count())
+    # TODO
+    st.markdown(frontendtemplate.title_temp.format('各列載具畫個在樂別的數量總攬'), unsafe_allow_html=True)
+    plot_catcnid_cal = init_invoice_df.groupby(['carrier_number', 'cat_id'], as_index=False).size()
+    st.dataframe(plot_catcnid_cal)
+    # TODO
+    st.markdown(frontendtemplate.title_temp.format('各類別在各縣市上的數量總攬'), unsafe_allow_html=True)
+
+    # TODO 分欄
+    left_column, right_column = st.beta_columns(2)
+    with left_column:
+
+        left_column.write("飲料沖泡")
+        plot_one_df.loc[plot_one_df['cat_id'] == 1, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
+        left_column.pyplot()
         
-        # TODO
-        st.markdown(frontendtemplate.title_temp.format('各列別數量 總攬'), unsafe_allow_html=True)
-        plot_cat_cal = init_invoice_df.groupby('cat_id')['invoice_number'].count()
-        plot_cat_cal.plot(kind='bar', rot=85, figsize=(10, 6))
-        st.set_option('deprecation.showPyplotGlobalUse', False)
-        st.pyplot()
-        # st.bar_chart(plot_cat_cal, width=20,use_container_width=True)
-        # st.dataframe(init_invoice_df.groupby('cat_id')['unit_price'].count())
-        # TODO
-        st.markdown(frontendtemplate.title_temp.format('各列載具畫個在樂別的數量總攬'), unsafe_allow_html=True)
-        plot_catcnid_cal = init_invoice_df.groupby(['carrier_number', 'cat_id'], as_index=False).size()
-        st.dataframe(plot_catcnid_cal)
-        # TODO
-        st.markdown(frontendtemplate.title_temp.format('各類別在各縣市上的數量總攬'), unsafe_allow_html=True)
+        left_column.write("美食生鮮")
+        plot_one_df.loc[plot_one_df['cat_id'] == 3, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
+        left_column.pyplot()
+        
+        left_column.write("居家生活")
+        plot_one_df.loc[plot_one_df['cat_id'] == 5, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
+        left_column.pyplot()
+        
+        left_column.write("家電")
+        plot_one_df.loc[plot_one_df['cat_id'] == 7, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
+        left_column.pyplot()
+        
+        left_column.write("零食")
+        plot_one_df.loc[plot_one_df['cat_id'] == 9, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
+        left_column.pyplot()
+        
+        left_column.write("菸酒")
+        plot_one_df.loc[plot_one_df['cat_id'] == 13, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
+        left_column.pyplot()
+        
+        left_column.write("生活休閒")
+        plot_one_df.loc[plot_one_df['cat_id'] == 15, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
+        left_column.pyplot()
 
-        # TODO 分欄
-        left_column, right_column = st.beta_columns(2)
-        with left_column:
-
-            left_column.write("飲料沖泡")
-            plot_one_df.loc[plot_one_df['cat_id'] == 1, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-
-            
-            left_column.write("美食生鮮")
-            plot_one_df.loc[plot_one_df['cat_id'] == 3, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-
-            
-            left_column.write("居家生活")
-            plot_one_df.loc[plot_one_df['cat_id'] == 5, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-
-            
-            left_column.write("家電")
-            plot_one_df.loc[plot_one_df['cat_id'] == 7, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-
-            
-            left_column.write("零食")
-            plot_one_df.loc[plot_one_df['cat_id'] == 9, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-            
-            left_column.write("菸酒")
-            plot_one_df.loc[plot_one_df['cat_id'] == 13, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-            
-            left_column.write("生活休閒")
-            plot_one_df.loc[plot_one_df['cat_id'] == 15, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-            left_column.pyplot()
-
-        with right_column:
-            right_column.write("麵食料理")
-            plot_one_df.loc[plot_one_df['cat_id'] == 2, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-            right_column.pyplot()
-            right_column.write("保健生機")
-            plot_one_df.loc[plot_one_df['cat_id'] == 4, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-            right_column.pyplot()
-            right_column.write("美容保養")
-            plot_one_df.loc[plot_one_df['cat_id'] == 6, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-            right_column.pyplot()
-            right_column.write("箱包服飾")
-            plot_one_df.loc[plot_one_df['cat_id'] == 8, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-            right_column.pyplot()
-            right_column.write("其他")
-            plot_one_df.loc[plot_one_df['cat_id'] == 10, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-            right_column.pyplot()
-            right_column.write("3C")
-            plot_one_df.loc[plot_one_df['cat_id'] == 12, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-            right_column.pyplot()
-            right_column.write("寵物專區")
-            plot_one_df.loc[plot_one_df['cat_id'] == 14, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
-            right_column.pyplot()
+    with right_column:
+        right_column.write("麵食料理")
+        plot_one_df.loc[plot_one_df['cat_id'] == 2, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
+        right_column.pyplot()
+        right_column.write("保健生機")
+        plot_one_df.loc[plot_one_df['cat_id'] == 4, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
+        right_column.pyplot()
+        right_column.write("美容保養")
+        plot_one_df.loc[plot_one_df['cat_id'] == 6, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
+        right_column.pyplot()
+        right_column.write("箱包服飾")
+        plot_one_df.loc[plot_one_df['cat_id'] == 8, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
+        right_column.pyplot()
+        right_column.write("其他")
+        plot_one_df.loc[plot_one_df['cat_id'] == 10, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
+        right_column.pyplot()
+        right_column.write("3C")
+        plot_one_df.loc[plot_one_df['cat_id'] == 12, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
+        right_column.pyplot()
+        right_column.write("寵物專區")
+        plot_one_df.loc[plot_one_df['cat_id'] == 14, ['city', 'size']].plot.bar(x='city', y='size', rot=85)
+        right_column.pyplot()
         
         
     if btn_dic['btn_predict']:
