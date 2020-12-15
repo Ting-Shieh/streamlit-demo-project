@@ -13,6 +13,9 @@ from classifiy_name import ClassifierByName
 import streamlit.components.v1 as components
 matplotlib.use('Agg')
 
+plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei'] 
+plt.rcParams['axes.unicode_minus'] = False
+
 # 全域變數
 selected_cat_list=None
 getwordListStr=None
