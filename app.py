@@ -197,13 +197,13 @@ def main():
     
     
     if btn_dic['btn_datashow']:
-        st.markdown(frontendtemplate.title_temp.format('Data 總攬'), unsafe_allow_html=True)
+        st.markdown(frontendtemplate.title_temp.format('Data View'), unsafe_allow_html=True)
         st.dataframe(init_invoice_df[
                          ['invoice_number', 'product_name', 'quantity', 'unit_price', 'invoice_number',
                           'invoice_date', 'store_address', ]])
         
         # TODO
-        st.markdown(frontendtemplate.title_temp.format('各列別數量 總攬'), unsafe_allow_html=True)
+        st.markdown(frontendtemplate.title_temp.format('各類別數量'), unsafe_allow_html=True)
         plot_cat_cal = init_invoice_df.groupby('cat_id')['invoice_number'].count()
         plot_cat_cal.plot(kind='bar', rot=85, figsize=(10, 6))
         st.set_option('deprecation.showPyplotGlobalUse', False)
@@ -211,11 +211,11 @@ def main():
         # st.bar_chart(plot_cat_cal, width=20,use_container_width=True)
         # st.dataframe(init_invoice_df.groupby('cat_id')['unit_price'].count())
         # TODO
-        st.markdown(frontendtemplate.title_temp.format('各列載具畫個在樂別的數量總攬'), unsafe_allow_html=True)
+        st.markdown(frontendtemplate.title_temp.format('各載具在各類別的數量'), unsafe_allow_html=True)
         plot_catcnid_cal = init_invoice_df.groupby(['carrier_number', 'cat_id'], as_index=False).size()
         st.dataframe(plot_catcnid_cal)
         # TODO
-        st.markdown(frontendtemplate.title_temp.format('各類別在各縣市上的數量總攬'), unsafe_allow_html=True)
+        st.markdown(frontendtemplate.title_temp.format('各類別在各縣市上的數量'), unsafe_allow_html=True)
 
         # TODO 分欄
         left_column, right_column = st.beta_columns(2)
