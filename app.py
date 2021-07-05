@@ -15,7 +15,6 @@ matplotlib.use('Agg')
 
 plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei'] 
 plt.rcParams['axes.unicode_minus'] = False
-
 # 全域變數
 selected_cat_list=None
 getwordListStr=None
@@ -106,7 +105,7 @@ def getRFMDataFrame(invoice_df):
             except Exception as e:
                 print('main: ' + str(e))
             else:
-                return resdf,final_dict
+                return resdf, final_dict
     except Exception as ec:
         print('main: ' + str(ec))
 
@@ -122,7 +121,6 @@ def getFilterDataFrame(init_invoice_df,cat_list,word_list_str):
 def dfValueCount(df):
     global catList
     return df['cat_id'].apply(lambda x: catList[x-1])
-
 
 def showSideBar():
     """
@@ -165,7 +163,7 @@ def showSideBar():
         # selected_cat_list = st.sidebar.multiselect('類別選擇', multiselectList)
         # 商品特性
 
-        getword = st.sidebar.text_input('商品特性(ex:葉黃素,牛肉)')
+        getword = st.sidebar.text_input('商品特性(ex:牛肉)')
         separator = '|'
         getwordList = getword.split(',')
         global getwordListStr
