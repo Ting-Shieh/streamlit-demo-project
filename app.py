@@ -148,7 +148,7 @@ def showSideBar():
         # TODO 類別預測
         st.sidebar.markdown(frontendtemplate.title_temp.format('類別預測'), unsafe_allow_html=True)
         global getproductword
-        getproductword = st.sidebar.text_input('品項名稱')
+        getproductword = st.sidebar.text_input('品項名稱(ex:貝納頌)')
 
         if st.sidebar.button('Run Predict'):
             global btn_dict
@@ -165,7 +165,7 @@ def showSideBar():
         # selected_cat_list = st.sidebar.multiselect('類別選擇', multiselectList)
         # 商品特性
 
-        getword = st.sidebar.text_input('商品特性')
+        getword = st.sidebar.text_input('商品特性(ex:葉黃素,牛肉)')
         separator = '|'
         getwordList = getword.split(',')
         global getwordListStr
